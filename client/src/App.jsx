@@ -11,9 +11,9 @@ const App = () => {
 			<Header />
 			<Router>
 				<Switch redirect="/">
-					<Route exact path="/dashboard" element={<DashboardPage />} />
-					<Route exact path="/" element={<ProductPage />} />
-					<Route path="*" element={<NotFoundPage />} />
+					<Route exact path="/dashboard" component={DashboardPage} />
+					<Route exact path="/" component={ProductPage} />
+					<Route path="*" component={NotFoundPage} />
 				</Switch>
 			</Router>
 			<Footer />

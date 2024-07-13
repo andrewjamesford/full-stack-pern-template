@@ -1,7 +1,7 @@
 openapi: "3.0.2"
 info:
   version: "1.0"
-  title: Welcome to the Products API!
+  title: Welcome to the Full Stack PERN API!
   description: This API allows user to handle products
 servers:
   - url: "http://localhost:5001/api"
