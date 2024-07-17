@@ -45,10 +45,6 @@ jobs:
         working-directory: server
         run: npm install
 
-      - name: Run server
-        working-directory: server
-        run: npm run start
-
       - name: Run server tests
         working-directory: server
-        run: npm test
+        run: npm run start && npm test
