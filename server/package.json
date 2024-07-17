@@ -6,7 +6,8 @@
 	"scripts": {
 		"dev": "nodemon --inspect=0.0.0.0:9229 index.js",
 		"start": "node index.js",
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "jest",
+		"test:watch": "jest --watchAll --colors --verbose",
 		"check": "biome check --write ./*.js",
 		"format": "biome format --write ./*.js",
 		"report": "biome check --reporter=summary --log-level=warn ./"

@@ -1,30 +1,23 @@
-const path = require("path");
-const jestOpenAPI = require("jest-openapi").default;
-
-jestOpenAPI(path.join(__dirname, "../apispec.yaml"));
+const request = require("supertest");
+const app = require("../app");
 const db = require("../db");
+const productRepository = require("./product.repository");
 
 describe("GIVEN that the GET /products route exist", () => {
-  afterAll(() => {
-    db.end();
-  });
-  test.todo("WHEN there are products THEN return status 200 and an array of products");
+	afterAll(() => {
+		db.end();
+	});
 
-  test.todo("WHEN there are no products THEN return status 200 and an empty array");
-});
+	test("Products shall be returned from the repository", async () => {
+		const response = await productRepository.getProducts("p.id", "asc");
+		expect(response.length).toBeGreaterThan(0);
+	});
 
-describe("WHEN the client sends a request for a specific number of products", () => {
-  test.todo("WHEN the limit query parameter is valid as per the API spec THEN return status 200 and an array of products");
+	test("Products shall be returned via the api", async () => {
+		const apiResponse = await request(app)
+			.get("/api/products")
+			.set("Accept", "application/json");
 
-  test.todo("WHEN the limit query parameter is not valid as per the API spec THEN return status 400 and an appropriate error message");
-});
-
-describe("WHEN the client sends a request for a specific page of products", () => {
-  test.todo(
-    "WHEN the page query parameter is valid as per the API spec THEN return 200 status code and an array of products"
-  );
-      
-  test.todo(
-    "WHEN the page query parameter is not valid as per the API spec THEN return status 400 and an appropriate error message"
-  );
+		expect(apiResponse.statusCode).toBe(200);
+	});
 });
