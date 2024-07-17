@@ -58,19 +58,25 @@ describe("GIVEN that the GET /reports route exists", () => {
 		checkJwt.mockImplementation((req, res, next) => next());
 		checkScopes.mockImplementation((req, res, next) => next());
 
-		const categoryReport = await reportRepository.getCategoryReport();
-		const discountReport = await reportRepository.getDiscountReport();
-
-		const expectedResponseData = {
-			categoryReport,
-			discountReport,
-		};
+		const mockCategoryReport = [{ id: 1, name: "Category 1" }];
+		const mockDiscountReport = [{ id: 1, discount: "10%" }];
+		jest
+			.spyOn(reportRepository, "getCategoryReport")
+			.mockResolvedValue(mockCategoryReport);
+		jest
+			.spyOn(reportRepository, "getDiscountReport")
+			.mockResolvedValue(mockDiscountReport);
 
 		const response = await request(app)
 			.get("/api/reports")
 			.set("Accept", "application/json");
 
 		expect(response.status).toBe(200);
-		expect(response.body).toEqual(expectedResponseData);
+		expect(response.body).toEqual({
+			categoryReport: [{ id: 1, name: "Category 1" }],
+			discountReport: [{ id: 1, discount: "10%" }],
+		});
 	});
+
+	test.todo("WHEN the user is authenticated THEN return status 200");
 });
