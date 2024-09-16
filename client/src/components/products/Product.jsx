@@ -35,7 +35,7 @@ const Product = ({
 					)}
 				</div>
 				<h3>{name}</h3>
-				<p>Price {price}</p>
+				<p>Price {`$${price.toFixed(2)}`}</p>
 				<p data-testid="product-description" className="">
 					{description}
 				</p>

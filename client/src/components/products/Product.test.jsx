@@ -18,3 +18,20 @@ test("Test Product displays all data", async () => {
 	const heading = screen.getByText("Product Name");
 	expect(heading).toBeInTheDocument();
 });
+
+test("Test Product displays price with correct formatting", async () => {
+	render(
+		<Product
+			name={"Product Name"}
+			description={"Product Description"}
+			price={1500}
+			imageDescription={"Image Description"}
+			imageName={"dog.jpg"}
+			discountType={"fixed"}
+			discountValue={100}
+		/>,
+	);
+
+	const priceElement = screen.getByText("Price $1500.00");
+	expect(priceElement).toBeInTheDocument();
+});
